@@ -1,7 +1,8 @@
-package dao;
+package hib_entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -12,6 +13,7 @@ public class Books {
     private String book_name;
 
     @ManyToOne
+    @JoinColumn(name="author_id")
     private Authors author;
 
     private int book_qty;

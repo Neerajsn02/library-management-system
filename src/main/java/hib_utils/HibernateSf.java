@@ -1,8 +1,8 @@
 package hib_utils;
 
 import org.hibernate.SessionFactory;
-import dao.Authors;
-import dao.Books;
+import hib_entities.Authors;
+import hib_entities.Books;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateSf {
