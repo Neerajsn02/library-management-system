@@ -22,32 +22,48 @@ public class Main {
         new BookDao(sf);
         new AuthorDao(sf);
 
-        Authors a1 = new Authors();
-        a1.setAuthor_id(1);
-        a1.setName("Rick Riordan");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter operation [ save | get | update | exit ] - ");
+        String operation = sc.nextLine();
 
-        Books b1 = new Books();
-        b1.setBook_id(1);
-        b1.setBook_name("Percy Jackson - Lightning Thief");
-        b1.setAuthor(a1);
-        b1.setBook_qty(4);
+        if (operation.equals("save")) {
+            System.out.println("Enter save operation - [ save-book | save-author ]");
+            String subOperation = sc.nextLine();
+            if (subOperation.equals("save-book")) {
+                saveBook(sc);
 
-        Books b2 = new Books();
-        b2.setBook_id(2);
-        b2.setBook_name("Percy Jackson - Sea of Monsters");
-        b2.setAuthor(a1);
-        b2.setBook_qty(3);
 
-        a1.setBooks(Arrays.asList(b1, b2));
 
-        AuthorDao.saveAuthor(a1);
-        BookDao.saveBook(b1);
-        BookDao.saveBook(b2);
+            }
+        }
 
 
 
 
+    }
 
+    public static void saveBook(Scanner sc) {
+        Books book = new Books();
+        System.out.println("book name - ");
+        book.setBook_name(sc.nextLine());
+        System.out.println("book id - ");
+        book.setBook_id(sc.nextInt());
+        sc.nextLine(); // newLine character still in buffer
+        System.out.println("Author name - ");
+        String authName = sc.nextLine();
+
+        // check if author exists in database - return the author object from authors table
+        // use authordao
+
+        Authors author = AuthorDao.getAuthor(authName);
+        book.setAuthor(author);
+
+        // NEED TO ADD - IF AUTHOR DOESN'T EXIST, PROMPT OR SOMETHING TO CREATE AN AUTHOR FIRST
+
+        System.out.println("Enter quantity - ");
+        book.setBook_qty(sc.nextInt());
+
+        BookDao.saveBook(book);
 
 
 
