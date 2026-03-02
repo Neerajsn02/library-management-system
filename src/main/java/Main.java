@@ -26,16 +26,25 @@ public class Main {
         System.out.println("Enter operation [ save | get | update | exit ] - ");
         String operation = sc.nextLine();
 
-        if (operation.equals("save")) {
-            System.out.println("Enter save operation - [ save-book | save-author ]");
-            String subOperation = sc.nextLine();
-            if (subOperation.equals("save-book")) {
-                saveBook(sc);
+        while (!operation.equals("exit")) {
+            if (operation.equals("save")) {
+                System.out.println("Enter save operation - [ save-book | save-author | add-book-to-author ]");
+                String subOperation = sc.nextLine();
+                if (subOperation.equals("save-book")) {
+                    saveBook(sc);
 
+                } else if (subOperation.equals("save-author")) {
+                    saveAuthor(sc);
 
+                } else if (subOperation.equals("add-book-to-author")) {
+                    addBookAuthor(sc);
 
+                }
             }
+            System.out.println("Next operation - ");
+            operation = sc.nextLine();
         }
+        System.out.println("Exit LMS");
 
 
 
@@ -65,8 +74,26 @@ public class Main {
 
         BookDao.saveBook(book);
 
+    }
 
+    public static void saveAuthor(Scanner sc) {
+        Authors author = new Authors();
+        System.out.println("author id - ");
+        author.setAuthor_id(sc.nextInt());
+        sc.nextLine();
+        System.out.println("author name - ");
+        author.setName(sc.nextLine());
+        AuthorDao.saveAuthor(author);
+    }
 
+    public static void addBookAuthor(Scanner sc) {
+        System.out.println("Enter the name of the author - ");
+        String name = sc.nextLine();
+        Authors author = AuthorDao.getAuthor(name);
+        System.out.println("Enter name of book - ");
+        Books book = BookDao.getBook(sc.nextLine());
+        author.getBooks().add(book);
+        System.out.println("Successfuly added book to author");
     }
 
 }

@@ -1,6 +1,7 @@
 package hib_entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
@@ -13,7 +14,7 @@ public class Authors {
     private int author_id;
     private String name;
 
-    @OneToMany (mappedBy = "author")
+    @OneToMany (mappedBy = "author", fetch = FetchType.EAGER)
     List<Books> books;
 
     public int getAuthor_id() {
