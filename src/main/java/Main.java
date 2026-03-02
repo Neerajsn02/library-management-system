@@ -68,6 +68,7 @@ public class Main {
         book.setAuthor(author);
 
         // NEED TO ADD - IF AUTHOR DOESN'T EXIST, PROMPT OR SOMETHING TO CREATE AN AUTHOR FIRST
+        // PASS EXECUTION TO saveAuthor?????
 
         System.out.println("Enter quantity - ");
         book.setBook_qty(sc.nextInt());
@@ -92,7 +93,7 @@ public class Main {
         Authors author = AuthorDao.getAuthor(name);
         System.out.println("Enter name of book - ");
         Books book = BookDao.getBook(sc.nextLine());
-        author.getBooks().add(book);
+        author.getBooks().add(book); // need eager loading of list as this line executed after session is closed
         System.out.println("Successfuly added book to author");
     }
 
