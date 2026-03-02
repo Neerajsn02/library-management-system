@@ -8,6 +8,7 @@ import hib_utils.HibernateSf;
 import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 // Book and Authors define and build the objects that need to be saved
@@ -40,9 +41,22 @@ public class Main {
                     addBookAuthor(sc);
 
                 }
+
+            } else if (operation.equals("get")) {
+                System.out.println("Enter get operation - [get-book | get-author]");
+                String subOp = sc.nextLine();
+
+                if (subOp.equals("get-book")) {
+                    getBookDetails(sc);
+
+                } else if (subOp.equals("get-author")) {
+                    getAuthDetails(sc);
+                }
+
             }
             System.out.println("Next operation - ");
             operation = sc.nextLine();
+
         }
         System.out.println("Exit LMS");
 
@@ -95,6 +109,27 @@ public class Main {
         Books book = BookDao.getBook(sc.nextLine());
         author.getBooks().add(book); // need eager loading of list as this line executed after session is closed
         System.out.println("Successfuly added book to author");
+    }
+
+    public static void getBookDetails(Scanner sc) {
+        System.out.println("Enter book name - ");
+        Books book = BookDao.getBook(sc.nextLine());
+        System.out.println("Here are the requested book details - ");
+        System.out.println(book);
+    }
+
+    public static void getAuthDetails(Scanner sc) {
+        System.out.println("Enter author name - ");
+        Authors author = AuthorDao.getAuthor(sc.nextLine());
+        System.out.print("Here are the requested author details - ");
+        System.out.println(author);
+        System.out.println("Books written by " + author.getName() + ": ");
+        List<Books> books = author.getBooks();
+        if (!books.isEmpty()) {
+            for (Books book : author.getBooks()) {
+                System.out.println(book);
+            }
+        }
     }
 
 }
